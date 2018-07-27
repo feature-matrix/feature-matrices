@@ -72,7 +72,7 @@
 					<th>
 						{{ feature }}
 						{% if matrix.loc[feature].reindex(softwares).support.isnull().any() %}
-							(incomplete)
+							(incomplete information)
 						{% endif %}
 					</th>
 					{% for software in softwares %}
