@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+		<title>Feature matrix: {{ name }}</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<style>
+			body {
+				padding-top: 10px;
+			}
+
+			#matrix {
+				width: 80%;
+				margin: auto;
+			}
+
+			#explanation {
+				width: 80%;
+				margin: auto;
+				margin-bottom: 2em;
+			}
+
+			h1 {
+				text-align: center;
+				margin-bottom: 2em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Feature matrix: {{ name }}</h1>
+
+		<p>
+
+		</p>
+
+		<div id="explanation">
+			<p>
+				This feature matrix is maintained by the
+				<a href="https://github.com/feature-matrix">Feature-Matrix project</a>
+				community project.
+				Our goal is to provide feature matrices of scientific tools that are
+				unbiased and fair.
+				To ensure this, we stick to the following rules
+			</p>
+			<ul>
+				<li>Everybody is welcome to update the matrix,
+					<a href="https://github.com/feature-matrix/feature-matrices/edit/master/data/{{ matrix_path }}">see here</a>.</li>
+				<li>As long there is at least one software supporting it, no feature will be rejected.</li>
+				<li>Features where the status of at least one software is unknown are marked as incomplete on the left</li>
+			</ul>
+		</div>
+
+		<table class="table table-bordered" id="matrix">
+			<thead>
+				<tr>
+					<th></th>
+					{% set softwares = matrix.software.unique() %}
+					{% for software in softwares %}
+					<th>{{ software }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for feature in matrix.feature.unique() %}
+				<tr>
+					<th>
+						{{ feature }}
+						{% if matrix.loc[feature].reindex(softwares).support.isnull().any() %}
+							(incomplete)
+						{% endif %}
+					</th>
+					{% for software in softwares %}
+					<td>
+						{% set row = matrix.reindex([(feature, software)], fill_value="").iloc[0] %}
+						{% if row.support == "yes" %}
+							{% set col = "text-success" %}
+						{% elif row.support != "no" %}
+							{% set col = "text-warning" %}
+						{% else %}
+							{% set col = "text-danger" %}
+						{% endif %}
+						{% if row.proof %}
+						<a href="{{ row.proof }}" class="{{ col }}">{{ row.support }}</a>
+						{% else %}
+						<span class="{{ col }}">{{ row.support if not row.support }}</span>
+						{% endif %}
+					</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script>
+		$(".table thead tr").removeAttr("style")
+		$(".table").removeAttr("border")
+	</script>
+	</body>
+</html>

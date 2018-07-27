@@ -1,0 +1,14 @@
+feature	software	support	proof
+text-based	snakemake	yes	https://snakemake.readthedocs.io
+text-based	nextflow	yes	https://nextflow.io
+local execution	snakemake	yes	http://snakemake.readthedocs.io/en/stable/executable.html#useful-command-line-arguments
+local execution	nextflow	yes	https://www.nextflow.io/index.html#GetStarted
+cluster execution	snakemake	yes	http://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution
+cluster execution	nextflow	yes	https://www.nextflow.io/docs/latest/executor.html
+Kubernetes execution	snakemake	yes	http://snakemake.readthedocs.io/en/stable/executable.html#cloud-support
+Kubernetes execution	nextflow	yes	https://www.nextflow.io/docs/latest/executor.html#kubernetes
+AWS Batch execution	nextflow	yes	https://www.nextflow.io/docs/latest/executor.html#aws-batch
+AWS Batch execution	snakemake	no	
+Remote file support	snakemake	yes	http://snakemake.readthedocs.io/en/stable/snakefiles/remote_files.html
+Remote file support	nextflow	no	
+Resource constrained local scheduling	snakemake	yes	https://snakemake.readthedocs.io/en/stable/executable.html?highlight=knapsack#useful-command-line-arguments
