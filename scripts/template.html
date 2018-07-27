@@ -56,10 +56,10 @@
 			</ul>
 		</div>
 
-		<table class="table table-bordered" id="matrix">
+		<table class="table table-bordered" id="matrix"  data-toggle="table">
 			<thead>
 				<tr>
-					<th></th>
+					<th>Feature</th>
 					{% set softwares = matrix.software.unique() %}
 					{% for software in softwares %}
 					<th>{{ software }}</th>
@@ -100,9 +100,5 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script>
-		$(".table thead tr").removeAttr("style")
-		$(".table").removeAttr("border")
-	</script>
 	</body>
 </html>
